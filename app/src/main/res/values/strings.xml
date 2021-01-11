@@ -1,3 +1,33 @@
 <resources>
     <string name="app_name">WifiApp</string>
+    <string name="username">User Name</string>
+    <string name="password">Password</string>
+    <string name="login">Login</string>
+    <string name="forgetPass">Forget Password ?</string>
+    <string name="messageofinternetService">No internet connection found.Please check your connection or try again</string>
+    <string name="turn_on_internet_service">Turn On</string>
+    <string name="welcome_n_to_nbrand_name">Welcome \n to \n Brand Name</string>
+    <string name="vocal_local">Vocal for Local</string>
+    <string name="products_and_offers_are_location_specific">Products and offers are Location Specific</string>
+    <string name="you_are_exploring">You are exploring (</string>
+    <string name="city">) city</string>
+    <string name="signup">Signup</string>
+    <string name="mobile_or_email">Mobile Number / Email</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="login_with_otp">Login With OTP</string>
+    <string name="signup_with_otp">Signup with OTP</string>
+    <string name="login_with_google">Login With Google</string>
+    <string name="login_with_facebook">Login With Facebook</string>
+    <string name="skip_login">Skip Login</string>
+    <string name="skip_signup">Skip Signup</string>
+    <string name="login_with_password">Login With Password</string>
+    <string name="please_enter">PLEASE ENTER</string>
+    <string name="the_validation_code_you_received_on">THE VALIDATION CODE, YOU RECEIVED ON -</string>
+    <string name="resend">Resend</string>
+    <string name="invalid_username_password">Invalid Username/Password</string>
+    <string name="forget">Forgot Password ?</string>
+    <string name="login_with_pass">Login With Password</string>
+    <string name="search_items">Search Items</string>
+    <string name="search">Search</string>
 </resources>
