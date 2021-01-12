@@ -17,20 +17,127 @@
             android:textSize="@dimen/_15ssp"
             android:text="WI-FI"
             android:textColor="@color/black"
-            android:layout_weight=".8"
+            android:layout_weight=".7"
             android:gravity="center|left"
             android:padding="@dimen/_5sdp"/>
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight=".1"
+            android:src="@drawable/wifi"
+            android:padding="@dimen/_5sdp"
+            android:id="@+id/wifi_view"/>
         <Switch
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight=".2"
             android:id="@+id/wifiSwitch"/>
     </LinearLayout>
-<androidx.recyclerview.widget.RecyclerView
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:id="@+id/wifiRecycler"
-    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-    android:orientation="vertical"/>
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/seeAllRouterBtn"
+                android:layout_marginTop="@dimen/_10sdp"
+                style="@style/btnOutline">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="See Routers Available"
+                    android:gravity="center"
+                    android:fontFamily="@font/montserrat_bold"
+
+                    android:textSize="@dimen/_13ssp"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <androidx.recyclerview.widget.RecyclerView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/wifiRecycler"
+                    android:visibility="gone"
+                    tools:listitem="@layout/hotspot_nearby_item"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    android:orientation="vertical"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <LinearLayout
+                    xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_50sdp"
+                        android:background="@color/gray_light"
+                        android:weightSum="1"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_weight=".32"
+                            android:layout_height="match_parent"
+                            android:text="PRICE"
+                            android:gravity="center"
+                            android:padding="@dimen/_5sdp"
+                            android:fontFamily="@font/montserrat_bold"/>
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_weight=".36"
+                            android:layout_height="match_parent"
+                            android:text="TIME PERIOD"
+                            android:gravity="center"
+                            android:padding="@dimen/_5sdp"
+                            android:id="@+id/availableTime"
+                            android:fontFamily="@font/montserrat_bold"/>
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_weight=".32"
+                            android:layout_height="match_parent"
+                            android:text="ACCESS "
+                            android:gravity="center"
+                            android:padding="@dimen/_5sdp"
+                            android:id="@+id/hotsoptSsId"
+                            android:fontFamily="@font/montserrat_bold"/>
+
+
+                    </LinearLayout>
+                </LinearLayout>
+                <androidx.recyclerview.widget.RecyclerView
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_200sdp"
+                    android:id="@+id/planRecycler"
+                    tools:listitem="@layout/plan_layout_item"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    android:orientation="vertical"/>
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/registerYourDeviceBtn"
+                android:layout_marginTop="@dimen/_10sdp"
+                style="@style/btn_main">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="Register Your Hotspot"
+                    android:gravity="center"
+                    android:fontFamily="@font/montserrat_bold"
+                    android:textColor="@color/color_white"
+                    android:textSize="@dimen/_13ssp"/>
+            </LinearLayout>
+
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+
+
+
 </LinearLayout>
 </layout>

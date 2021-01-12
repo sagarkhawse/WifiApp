@@ -1,35 +1,36 @@
 package com.skteam.wifiapp.ui.home;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.Manifest;
-import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.net.wifi.ScanResult;
-import android.net.wifi.WifiConfiguration;
 import android.net.wifi.WifiManager;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.CountDownTimer;
-import android.util.Log;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.CompoundButton;
 import android.widget.Toast;
 
 import com.skteam.wifiapp.R;
 import com.skteam.wifiapp.baseclasses.BaseActivity;
 import com.skteam.wifiapp.databinding.ActivityHomeBinding;
+import com.skteam.wifiapp.ui.home.adapter.PlanAdapter;
+import com.skteam.wifiapp.ui.home.adapter.WifiNearbyAdapter;
+import com.skteam.wifiapp.ui.home.model.Plan;
+import com.skteam.wifiapp.ui.register.RegisterHotspot;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class HomeActivity extends BaseActivity<ActivityHomeBinding, HomeViewmodel> implements HomeNAv {
     private ActivityHomeBinding binding;
     private HomeViewmodel viewmodel;
     private WifiManager wifiManager;
+    private WifiNearbyAdapter adapter;
+    private PlanAdapter planAdapter;
+    private List<Plan> getPlanList = new ArrayList<>();
 
     @Override
     public int getBindingVariable() {
@@ -49,15 +50,39 @@ public class HomeActivity extends BaseActivity<ActivityHomeBinding, HomeViewmode
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        wifiManager = (WifiManager) getApplicationContext().getSystemService(Context.WIFI_SERVICE);
         binding = getViewDataBinding();
         viewmodel.setNavigator(this);
-        wifiManager = (WifiManager) getApplicationContext().getSystemService(Context.WIFI_SERVICE);
+        Plan plan = new Plan("100", "1", "UNLIMETED");
+        Plan plan2 = new Plan("120", "1.5", "UNLIMETED");
+        Plan plan3 = new Plan("200", "3", "UNLIMETED");
+        getPlanList.add(plan);
+        getPlanList.add(plan2);
+        getPlanList.add(plan3);
+        adapter = new WifiNearbyAdapter(this, wifiManager);
+        planAdapter = new PlanAdapter(this);
+        planAdapter.UpdateList(getPlanList);
+        binding.planRecycler.setAdapter(planAdapter);
+
+        binding.wifiRecycler.setAdapter(adapter);
+        binding.seeAllRouterBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (binding.wifiRecycler.getVisibility() == View.VISIBLE) {
+                    binding.wifiRecycler.setVisibility(View.GONE);
+                } else {
+                    binding.wifiRecycler.setVisibility(View.VISIBLE);
+                }
+            }
+        });
         switch (wifiManager.getWifiState()) {
             case WifiManager.WIFI_STATE_ENABLED:
                 binding.wifiSwitch.setChecked(true);
+                binding.wifiView.setImageResource(R.drawable.wifi_connected);
                 break;
             case WifiManager.WIFI_STATE_DISABLED:
                 binding.wifiSwitch.setChecked(false);
+                binding.wifiView.setImageResource(R.drawable.wifi);
                 break;
         }
         binding.wifiSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -65,9 +90,16 @@ public class HomeActivity extends BaseActivity<ActivityHomeBinding, HomeViewmode
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
                     wifiManager.setWifiEnabled(true);
+
                 } else {
                     wifiManager.setWifiEnabled(false);
                 }
+            }
+        });
+        binding.registerYourDeviceBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(HomeActivity.this, RegisterHotspot.class));
             }
         });
 
@@ -110,17 +142,17 @@ public class HomeActivity extends BaseActivity<ActivityHomeBinding, HomeViewmode
         if (isConnected) {
             Toast.makeText(this, "Wifi Started", Toast.LENGTH_SHORT).show();
             binding.wifiSwitch.setChecked(true);
+            binding.wifiView.setImageResource(R.drawable.wifi_connected);
         } else {
             Toast.makeText(this, "Please Start your WIFI First", Toast.LENGTH_SHORT).show();
             binding.wifiSwitch.setChecked(false);
+            binding.wifiView.setImageResource(R.drawable.wifi);
         }
 
     }
 
     @Override
-    public void UpdateList(String[] filtered) {
-        if (filtered != null) {
-            Toast.makeText(this, filtered[0], Toast.LENGTH_SHORT).show();
-        }
+    public void UpdateList(List<ScanResult> filtered) {
+        adapter.UpdateList(filtered);
     }
 }

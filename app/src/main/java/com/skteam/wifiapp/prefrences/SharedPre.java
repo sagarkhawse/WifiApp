@@ -29,6 +29,7 @@ public class SharedPre {
     private static final String NOTIFICATION_MUTED = "notification_muted";
     private static final String IS_LOGGED_IN_VIA_EMAIL = "emailLoggedin";
     private static final String FB_ACCESS_TOKEN = "usertoken";
+    private static final String SSID = "ssid of Your Hotspot";
     private static SharedPre Instance;
     @NonNull
     Context mContext;
@@ -179,6 +180,13 @@ public class SharedPre {
     public void setNotificationSound(String uri) {
         SetDataString(this.RINGTON_PATH, uri);
     }
+
+    public void setHotspotName(String ssid) {
+        SetDataString(SSID,ssid);
+    }
+    public void getHotspotSSid(){
+        GetDataString(SSID);
+    }
 //--------------------------------------Boolean Values--------------------------------------------
 
     //------------------------------------------------------------------------------------------------
@@ -275,6 +283,7 @@ public class SharedPre {
         removePreferences(IS_LOGGED_IN_VIA_EMAIL, mContext);
 
     }
+
 
 
 }

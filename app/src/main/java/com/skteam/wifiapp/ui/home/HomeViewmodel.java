@@ -64,7 +64,7 @@ public class HomeViewmodel extends BaseViewModel<HomeNAv> {
 
             }
             Log.e("wificount", String.valueOf(wifiScanList.size()));
-           getNavigator().UpdateList(filtered);
+           getNavigator().UpdateList(wifiScanList);
         }
     }
     private void finallyConnect(String networkPass, String networkSSID) {
